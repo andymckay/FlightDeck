@@ -1,0 +1,85 @@
+/* Tree CSS */
+ul.tree, ul.tree li, ul.tree ul {
+	position: relative;
+	cursor: pointer;
+	zoom: 1;
+}
+
+ul.tree li, li.drag, li.drag ul li  {
+	margin: 0;
+	line-height: 20px;
+	list-style-type: none;
+}
+
+ul.tree, ul.tree ul, li.drag ul {
+	margin: 0;
+	padding: 4px 0 4px 30px;
+	clear: both;
+}
+
+ul.tree li span, li.drag span {
+	float: left;
+	color: #111;
+	display: block;
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-image: url(../images/folder-closed.png);
+}
+
+	li[rel="directory"]  > span
+	{
+		background-image: url(../images/file.png);
+	}
+
+ul.tree li {
+	list-style-type: none;
+	padding-left: 19px;
+	line-height: 18px;
+	margin: 3px 0;
+	background: url(../Assets/Bullet.png) no-repeat 0 2px;
+}
+
+ul.tree li.nodrop {
+	background-image: url(../Assets/Blocked.png);
+}
+
+ul.tree li.nodrop span {
+	color: #800;
+}
+
+ul.tree li.nodrag > span {
+	font-weight: bold;
+}
+
+div.treeIndicator {
+	position: absolute;
+	width: 100px;
+	height: 1px;
+	background-color: #000;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+	z-index: 50;
+
+	/* For IE */
+	overflow: hidden;
+	line-height: 1px;
+}
+
+li.drag {
+	position: absolute;
+	z-index: 50;
+}
+
+li.drag span
+{
+	padding: 2px 0 2px 24px;
+}
+
+li.drag span.dispose {
+	display: none;
+}
+
+span.dispose {
+	float: right;
+	color: #800;
+}

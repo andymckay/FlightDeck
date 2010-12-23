@@ -5,6 +5,18 @@
 /*
  * Javascript Package/PackageRevision representation
  */
+var treeOptions = {
+    checkDrag: function(el){
+        return !el.hasClass('nodrag') && this.options.editable;
+    },
+    checkDrop: function(el, drop){
+        var isFile = el.get('rel') == 'file',
+            isSibling = this.current.getSiblings().contains(el);
+
+        return (((drop.isSubnode || isSibling) && isFile) || el.hasClass('top_branch') || isSibling && !isFile && !drop.isSubnode || !isFile && drop.isSubnode && this.current.getParent().getParent() == el) ? false : true;
+    },
+    editable: true
+}
 
 var Package = new Class({
 	// this Class should be always extended
@@ -40,6 +52,7 @@ var Package = new Class({
 	attachments: {},
 	initialize: function(options) {
 		this.setOptions(options);
+		this.create_tree();
 		this.instantiate_modules();
 		this.instantiate_attachments();
 		$('revisions_list').addEvent('click', this.show_revision_list);
@@ -50,6 +63,30 @@ var Package = new Class({
 			this.test_url = $(this.options.test_el).get('href');
 			$(this.options.test_el).addEvent('click', this.boundTestAddon)
 		}
+		if ($('attachments')) $('attachments').addEvent(
+			'click:relay(.UI_File_Listing a)',
+			function(e, target) {
+				e.stop();
+				var url = target.get('href');
+				var ext = target.get('rel');
+				var filename = target.get('text').escapeAll();
+				var template_start = '<div id="attachment_view"><h3>'+filename+'</h3><div class="UI_Modal_Section">';
+				var template_end = '</div><div class="UI_Modal_Actions"><ul><li><input type="reset" value="Close" class="closeModal"/></li></ul></div></div>';
+				var template_middle = 'Download <a href="'+url+'">'+filename+'</a>';
+				if (['jpg', 'gif', 'png'].contains(ext)) template_middle = '<img src="'+url+'"/>';
+				if (['css', 'js', 'txt'].contains(ext)) {
+					new Request({
+						url: url,
+						onSuccess: function(response) {
+							template_middle = '<pre>'+response.escapeAll()+'</pre>';
+							this.attachmentWindow = fd.displayModal(template_start+template_middle+template_end);
+						}
+					}).send();
+				} else {
+					this.attachmentWindow = fd.displayModal(template_start+template_middle+template_end);
+				}
+			}.bind(this)
+		)
 	},
 	testAddon: function(e){
 		var el;
@@ -115,6 +152,45 @@ var Package = new Class({
 				fd.displayModal(html);
 			}
 		}).send();
+	},
+	create_tree: function() {
+		new Tree('modules', treeOptions);
+		var fdLibCollapse = new Collapse('modules');
+
+		new Tree('attachments', treeOptions);
+		fdDataCollapse = new Collapse('attachments');
+
+		var libBranch = fdLibCollapse.addBranch({
+		    'rel': 'directory',
+		    'title': 'Lib',
+		    'id': 'lib_branch',
+		    'class': 'top_branch nodrag'
+		}).getElement('ul');
+
+		var dataBranch = fdDataCollapse.addBranch({
+		    'rel': 'directory',
+		    'title': 'Data',
+		    'id': 'data_branch',
+		    'class': 'top_branch nodrag'
+		}).getElement('ul');
+
+		Object.each(this.options.tree, function(value, key){
+		    switch(key){
+			case 'Lib':
+			    value.each(function(obj){
+				fdLibCollapse.addPath(obj, { target: libBranch, suffix: '.js', url: obj.url, id: obj.id });
+			    });
+			    fdLibCollapse.prepare();
+			break;
+
+			case 'Data':
+			    value.each(function(obj){
+				fdDataCollapse.addPath(obj, { target: dataBranch, url: obj.url, id: obj.id });
+			    });
+			    fdDataCollapse.prepare();
+			break;
+		    }
+		});
 	}
 });
 
@@ -188,7 +264,6 @@ var Attachment = new Class({
 		if (this.options.append) {
 			this.append();
 		}
-
 		// connect trigger with editor
 		if ($(this.get_trigger_id())) {
 			this.trigger = $(this.get_trigger_id());
@@ -317,9 +392,11 @@ var Module = new Class({
 				if (e) e.preventDefault();
 				this.switchBespin();
 			}.bind(this));
+			/*
 			if (this.options.main || this.options.executable) {
 				this.trigger.getParent('li').switch_mode_on();
 			}
+			*/
 			if (this.options.active) {
 				this.switchBespin();
 				var li = this.trigger.getParent('li')
@@ -348,6 +425,15 @@ var Module = new Class({
 				fd.editor_contents[this.get_editor_id()] = mod.code;
 			}.bind(this)
 		}).send();
+		if (!this.options.readonly) {
+			// here special functionality for edit page
+			var rm_mod_trigger = this.trigger.getElement('span.File_close');
+			if (rm_mod_trigger) {
+				rm_mod_trigger.addEvent('click', function(e) {
+					this.pack.removeModuleAction(e);
+				}.bind(this));
+			}
+		}
 	},
 	append: function() {
 		var html = '<a title="" href="#" class="Module_file" id="{filename}_switch">'+
@@ -451,9 +537,11 @@ Package.Edit = new Class({
 		this.assignActions();
 
 		// autocomplete
+		/*
 		this.autocomplete = new FlightDeck.Autocomplete({
 			'url': settings.library_autocomplete_url
 		});
+		*/
 	},
 	assignActions: function() {
 		// assign menu items
@@ -468,12 +556,15 @@ Package.Edit = new Class({
 		this.boundSubmitInfo = this.submitInfo.bind(this);
 
 		// add/remove module
+		/*
 		this.boundAddModuleAction = this.addModuleAction.bind(this);
 		this.boundRemoveModuleAction = this.removeModuleAction.bind(this);
 		$(this.options.add_module_el).addEvent('click',
 			this.boundAddModuleAction);
+		*/
 
 		// assign/remove library
+		/*
 		this.boundAssignLibraryAction = this.assignLibraryAction.bind(this);
 		this.boundRemoveLibraryAction = this.removeLibraryAction.bind(this);
 		$(this.options.assign_library_el).addEvent('click',
@@ -481,16 +572,18 @@ Package.Edit = new Class({
 		$$('#libraries .UI_File_Listing .File_close').each(function(close) {
 			close.addEvent('click', this.boundRemoveLibraryAction);
 		},this);
+		*/
 
 		// add attachments
+		/*
 		this.add_attachment_el = $('add_attachment');
 		this.add_attachment_el.addEvent('change', this.sendMultipleFiles.bind(this));
 		this.boundRemoveAttachmentAction = this.removeAttachmentAction.bind(this);
 		$$('#attachments .UI_File_Listing .File_close').each(function(close) {
 			close.addEvent('click', this.boundRemoveAttachmentAction);
 		},this);
-		this.attachments_counter = $('attachments-counter');
-
+		*/
+		/*
 		var fakeFileInput = $('add_attachment_fake'), fakeFileSubmit = $('add_attachment_action_fake');
 		this.add_attachment_el.addEvents({
 			change: function(){
@@ -505,6 +598,7 @@ Package.Edit = new Class({
 				fakeFileSubmit.removeClass('hover');
 			}
 		});
+		*/
 		if ($('jetpack_core_sdk_version')) {
 			$('jetpack_core_sdk_version').addEvent('change', function() {
 				new Request.JSON({
@@ -689,13 +783,16 @@ Package.Edit = new Class({
 			}.bind(this)
 		}).send();
 	},
+	/*
 	assignLibraryAction: function(e) {
-        e.stop();
+		e.stop();
 		// get data
 		library_id = $(this.options.assign_library_input).get('value');
 		// assign Library by giving filename
 		this.assignLibrary(library_id);
 	},
+	*/
+	/*
 	assignLibrary: function(library_id) {
         if (library_id) {
           new Request.JSON({
@@ -717,6 +814,8 @@ Package.Edit = new Class({
           fd.error.alert('No such Library', 'Please choose a library from the list');
         }
 	},
+	*/
+	/*
 	appendLibrary: function(lib) {
 		var html='<a title="" id="library_{library_name}" href="{library_url}" target="{id_number}" class="library_link">'+
 					'{full_name}'+
@@ -731,6 +830,7 @@ Package.Edit = new Class({
 		},this);
 		$('libraries-counter').set('text', '('+ $('libraries').getElements('.UI_File_Listing li').length +')')
 	},
+	*/
 	removeLibraryAction: function(e) {
 		if (e) e.stop();
 		var id_number = e.target.getParent('a').get('target');

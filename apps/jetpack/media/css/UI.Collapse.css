@@ -1,0 +1,101 @@
+ul.collapse {
+	margin: 0;
+	padding: 0 0 0 30px;
+}
+
+ul.licollapsest ul {
+	margin: 0;
+	padding: 0 0 0 10px;
+}
+
+ul.collapse li {
+	list-style-type: none;
+	padding: 0;
+	line-height: 18px;
+	margin: 4px 0;
+	background: none;
+	clear: both;
+	overflow: hidden;
+}
+
+ul.collapse span {
+    padding: 2px 0 2px 24px;
+	cursor: pointer;
+	color: #5e5e5e;
+	text-decoration: none;
+}
+
+ul.collapse a.expand {
+	outline: 0;
+	float: left;
+	width: 16px;
+	height: 19px;
+	padding: 0;
+	margin: 0;
+	background: url(../img/expand.png) no-repeat bottom center;
+}
+
+ul.collapse a.collapse {
+	background: url(../img/collapse.png) no-repeat bottom center;
+}
+
+ul.collapse a.collapse + span
+{
+	background-image: url(../img/folder-open.png);
+}
+
+ul li.top_branch > a
+{
+	height: 26px !important;
+}
+
+ul li.top_branch > span
+{
+	background-color: #efefef;
+	background-position: 6px center;
+	padding: 8px 6px 8px 30px;
+	border: 1px solid;
+	border-color: #dadada #d0d0d0 #cacaca;
+	border-radius: 4px;
+}
+
+#lib_branch > span
+{
+	background-image: url(../img/lib.png)!important;
+}
+
+#data_branch > span
+{
+	background-image: url(../img/data.png)!important;
+	background-position: 7px center !important;
+}
+
+span[title$=".html"]
+{
+	background-image: url(../img/html.png) !important;
+}
+
+span[title$=".js"]
+{
+	background-image: url(../img/js.png) !important;
+}
+
+span[title$=".css"]
+{
+	background-image: url(../img/css.png) !important;
+}
+
+span[title$=".png"], span[title$=".jpg"], span[title$=".gif"]
+{
+	background-image: url(../img/image.png) !important;
+}
+
+span[title$=".json"]
+{
+	background-image: url(../img/json.png) !important;
+}
+
+span[title$=".md"]
+{
+	background-image: url(../img/md.png) !important;
+}

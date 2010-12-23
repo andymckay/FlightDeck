@@ -875,6 +875,20 @@ class PackageRevision(models.Model):
                 else "%s.rev%s" % (
                     self.package.version_name, self.revision_number)
 
+    def get_file_tree(self):
+        """Returns a file tree in json."""
+        tree = {
+            'Lib': [ { 'path': m.filename,
+                       'id': '%s_switch' % m.filename,
+                       'url': ''} for m in self.modules.all() ],
+            'Data': [ { 'path': a.get_filename(),
+                        'id': '%s_attachment_switch' % a.get_uid,
+                        'url': ''} for a in self.attachments.all() ],
+            "Plugins":[]
+        }
+
+        return simplejson.dumps(tree)
+
 
 class Module(models.Model):
     """
