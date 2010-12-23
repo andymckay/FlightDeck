@@ -9,11 +9,14 @@
 
 {% block head %}
 	<link rel="stylesheet" href="/media/jetpack/css/UI.Editor.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/media/jetpack/css/UI.Tree.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="/media/jetpack/css/UI.Collapse.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="/media/bespin/BespinEmbedded.css" type="text/css" media="screen" />
 	<script src="/media/jetpack/js/FlightDeck.Editor.js"></script>
 	<script src="/media/jetpack/js/Editor.js"></script>
 	<script src="/media/jetpack/js/Bespin.js"></script>
 	<script src="/media/jetpack/js/FlightDeck.Bespin.js"></script>
+    <script src="/media/jetpack/js/Tree.js"></script>
 	<script src="/media/jetpack/js/Package.js"></script>
 {% endblock %}
 
@@ -42,48 +45,8 @@
 	<section id="package-info" class="UI_Sidebar_Item">
 		{% include "_package_info.html" %}
 	</section>
-	<section id="modules">
-		{% block modules_sidebar %}{% endblock %}
-	</section>
-	{% with revision.attachments.all as attachments %}{% if attachments %}
-	<section id="attachments">
-			<h3 class="UI_Sidebar_Toggler attachments opened">
-				<a title="Attachments" href="#">
-					Attachments <strong id="attachments-counter">({{ attachments|length }})</strong>
-					<span class="UI_OC"></span>
-					<span class="UI_Sidebar_Toggler_Icon"></span>
-				</a>
-			</h3>
-			<div class="UI_Sidebar_ItemCont">
-				<ul class="UI_File_Listing" id='attachments_ul'>
-					{% for attachment in attachments %}
-						<li class="UI_File_Normal">
-							<a title="" href="{{ attachment.get_display_url }}" rel="{{ attachment.ext }}" class="Module_file" id="{{ attachment.filename }}_display">
-								{{ attachment.get_filename }}
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
-		</section>
-	{% endif %}{% endwith %}
-	{% if libraries or revision.package.is_addon %}
-		<section id="libraries">
-			<h3 class="UI_Sidebar_Toggler libraries opened"><a title="Libraries" href="#">
-				Libraries <strong id="libraries-counter">({{ library_counter }})</strong>
-				<span class="UI_OC"></span>
-				<span class="UI_Sidebar_Toggler_Icon"></span>
-			</a></h3>
-			<div class="UI_Sidebar_ItemCont">
-				<ul class="UI_File_Listing">
-					{% block core_library %}{% endblock %}
-					{% if libraries %}
-						{% include "_sidebar_revision_libraries_list.html" %}
-					{% endif %}
-				</ul>
-			</div>
-		</section>
-	{% endif %}
+	<ul id="modules" class="collapse tree"></ul>
+	<ul id="attachments" class="collapse tree"></ul>
 {% endblock %}
 
 

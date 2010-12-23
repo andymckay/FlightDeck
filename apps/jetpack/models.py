@@ -880,13 +880,17 @@ class PackageRevision(models.Model):
         tree = {
             'Lib': [ { 'path': m.filename,
                        'id': '%s_switch' % m.filename,
-                       'url': ''} for m in self.modules.all() ],
+                       'url': reverse('jp_get_module', args=[
+                                        self.package.id_number,
+                                        self.revision_number,
+                                        m.filename])
+                       } for m in self.modules.all() ],
             'Data': [ { 'path': a.get_filename(),
                         'id': '%s_attachment_switch' % a.get_uid,
-                        'url': ''} for a in self.attachments.all() ],
+                        'url': reverse('jp_attachment', args=[a.get_uid])
+                        } for a in self.attachments.all() ],
             "Plugins":[]
         }
-
         return simplejson.dumps(tree)
 
 
