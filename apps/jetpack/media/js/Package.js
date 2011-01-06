@@ -573,6 +573,7 @@ Package.Edit = new Class({
 					uid: response.uid,
 					type: response.ext
 				});
+				self.setUrls(response);
 				self.attachments[response.uid] = attachment;
 			},
 
