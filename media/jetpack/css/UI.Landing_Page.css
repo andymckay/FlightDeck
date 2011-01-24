@@ -20,22 +20,23 @@ body .UI_middleWrapper.page {
 #features-wrapper {
 	border-bottom: solid 1px #fff;
 	background: -moz-linear-gradient(270deg, #FFFFFE, #F3F5F7);
-	overflow: hidden;
 	height: 100%;
 	padding: 1.5em 0;
 	-moz-box-shadow: 0 1px 0 #D0D5DB;
-	
-	
+
+
 }
 
 #features-wrapper .UI_middleWrapper {
 	max-width: 945px;
+        padding-bottom: 1.5em;
 	font-family: Helvetica, Arial, Tahoma, sans-serif;
 	position: relative;
 }
 
 	#features-wrapper .UI_Feature_Copy {
 		float: left;
+        padding-top: 1em;
 		margin-right: 240px;
 		padding-right: 20px;
 		border-right: solid 1px #D0D5DB;
@@ -45,80 +46,244 @@ body .UI_middleWrapper.page {
 		#features-wrapper .UI_Feature_Copy h3 {
 			font-size: 2.1em;
 			display: block;
-			color: #478CDE;
+			color: black;
 			text-shadow: 0 1px 0 #fff;
 			line-height: .9em;
 			margin-bottom: .5em;
 		}
-	
+
 		#features-wrapper .UI_Feature_Copy p {
-			margin: 10px 0 0;
-			font-size: 1em;
+			margin: 1em 0 1.5em 0;
+			font-size: 1.4em;
 			line-height: 1.5em;
 			text-shadow: 0 1px 0 #fff;
 			color: #666666;
 		}
-	
+
 			#features-wrapper .UI_Feature_Copy p a {
 				color: #478CDE;
 			}
-		
+
 	#features-wrapper .UI_Feature_Side {
 		width: 220px;
 		float: right;
 		position: absolute;
-		top: 50%;
-		right: 0;
-		margin-top: -22px;
+		top: 0;
+        padding-top: 1em;
+		right: 3%;
+        line-height: 1.4em;
 	}
-	
+
+        #features-wrapper .UI_Feature_Side a {
+            color: #478CDE;
+        }
+        #features-wrapper .UI_Feature_Side h3 {
+            font-weight: bold;
+        }
+        #features-wrapper .UI_Feature_Side h3.second {
+            padding-top: 1em;
+        }
+
 /*
  ========================================================================= */
-#new-addon {
+.fd_button {
 }
 
-	#new-addon li {
-		float: right;
-		background: -moz-linear-gradient(270deg, #8CC472, #5E9045);
-		padding: 2px 1px 1px;
-		-moz-border-radius: 6px;
-		width: 100%;
-	}
+    .fd_button {
+        background: -moz-linear-gradient(270deg, #8CC472, #5E9045);
+        padding: 15px 1px 13px 1px;
+        -moz-border-radius: 6px;
+        display: block;
+    }
 
-	#new-addon li:hover {
-		-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-	}
+    .fd_button:hover {
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    }
 
-		#new-addon li a {
-			background: -moz-linear-gradient(270deg, #C5F3AE, #96CE79);
-			-moz-border-radius: 5px;
-			-moz-box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
-			overflow: hidden;
-			display: block;
-			color: #136B00;
-			font-family: Helvetica, Arial, Tahoma, sans-serif;
-		}
+    .fd_button a {
+        background: -moz-linear-gradient(270deg, #C5F3AE, #96CE79);
+        -moz-border-radius: 5px;
+        -moz-box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+        overflow: hidden;
+        color: #136B00;
+        font-family: Helvetica, Arial, Tahoma, sans-serif;
+        padding: 17px 0px 13px 0px;
+    }
 
-		#new-addon li a:hover {
-			text-decoration: none;
-			background: -moz-linear-gradient(270deg, #DEF8C4, #A5DA7F);
-		}
+    .fd_button a:hover {
+        text-decoration: none;
+        background: -moz-linear-gradient(270deg, #DEF8C4, #A5DA7F);
+    }
 
-			#new-addon li a span {
-				display: block;
-				padding: 14px 31px 12px 76px;
-				background: url(../img/UI_Buttons/button-home-addon.png) 0 50% no-repeat;
-				text-shadow: 0 1px 0  rgba(255, 255, 255, 0.7);
-				-moz-border-radius: 5px;
-				font-size: 1.3em;
-			}
-			
-			#new-addon li a:hover span {
-				/*opacity: 0.6;*/
-			}
+    .fd_button a span {
+        padding: 15px 30px 12px 75px;
+        background: url(../img/UI_Buttons/button-home-addon.png) 0 50% no-repeat;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+        -moz-border-radius: 5px;
+        font-size: 17px;
+    }
+
+    .fd_button a:hover span {
+        /*opacity: 0.6;*/
+    }
 
 
-/*
+/* dropdown */
+.fd_dropdown {}
+
+    .fd_dropdown {
+        background: -moz-linear-gradient(270deg, #8CC472, #5E9045);
+        padding: 14px 1px 13px 1px;
+        -moz-border-radius: 6px;
+        margin-right: 3em;
+    }
+
+    .fd_dropdown div {
+        display: inline;
+    }
+
+    .fd_dropdown div.left a:hover,
+    .fd_dropdown div.right a:hover {
+        text-decoration: none;
+        background: -moz-linear-gradient(270deg, #DEF8C4, #A5DA7F);
+    }
+
+    .fd_dropdown div.left:hover,
+    .fd_dropdown div.right:hover {
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .fd_dropdown div.left a {
+        background: -moz-linear-gradient(270deg, #C5F3AE, #96CE79);
+        -moz-border-radius: 5px 0px 0px 5px;
+        -moz-box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+        color: #136B00;
+        padding: 18px 0px 13px 0px;
+        margin-right: 1px;
+    }
+
+    .fd_dropdown div.left a span {
+        padding: 15px 30px 12px 65px;
+        background: url(../img/UI_Buttons/button-home-addon.png) 0 50% no-repeat;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+        -moz-border-radius: 5px;
+        font-size: 17px;
+    }
+
+
+    .fd_dropdown div.right {
+        padding: 0px 0px 15px 0px;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+        -moz-border-radius: 0px 6px 6px 0px;
+        font-size: 17px;
+    }
+
+    .fd_dropdown div.right ul {
+        padding-left: 1px;
+    }
+
+    .fd_dropdown div.right ul,
+    .fd_dropdown div.right li {
+        padding: 0;
+        margin: 0;
+        z-index: 99;
+        position: relative;
+        display: inline;
+    }
+
+    .fd_dropdown div.right a {
+        background: -moz-linear-gradient(270deg, #C5F3AE, #96CE79);
+        -moz-box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+        color: #136B00;
+        -moz-border-radius: 0px 5px 5px 0px;
+        padding: 14px 15px 12px 15px;
+    }
+
+    .fd_dropdown div.right a,
+    .fd_dropdown div.right span {
+        font-weight: bold;
+    }
+
+
+    .fd_dropdown div.right li ul {
+        position: absolute;
+        left: -999em;
+        opacity: 0;
+    }
+
+    .fd_dropdown div.right li:hover ul,
+    .fd_dropdown div.right li.sfhover ul {
+        margin-top: 34px;
+        left: 0;
+        opacity: 1;
+        background: -moz-linear-gradient(270deg, #C5F3AE, #96CE79);
+        -moz-transition: opacity 0.2s ease-in-out;
+        -webkit-transition: opacity 0.2s ease-in-out;
+    }
+
+    .fd_dropdown div.right ul li ul li {
+        float: none;
+    }
+
+    .fd_dropdown div.right ul li a,
+    .fd_dropdown div.right ul li a:link,
+    .fd_dropdown div.right ul li a:visited {
+        text-decoration: none;
+        -moz-transition: background 0.2s linear;
+        -webkit-transition: background 0.2s linear;
+    }
+
+    .fd_dropdown div.right ul li a:hover,
+    .fd_dropdown div.right ul li a:active {
+        -moz-transition: background 0.1s ease-in;
+        -webkit-transition: background 0.1s ease-in;
+    }
+
+    .fd_dropdown div.right ul ul {
+        border-top: 0;
+        padding: 0 0 4px 0;
+        width: 190px;
+        -moz-box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+        -webkit-box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+        box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .fd_dropdown div.right ul li ul li a,
+    .fd_dropdown div.right ul li ul li a:link,
+    .fd_dropdown div.right ul li ul li a:visited,
+    .fd_dropdown div.right ul li ul li span {
+        margin: 0;
+        -moz-border-radius: 0;
+        height: auto;
+        float: none;
+        display: block;
+        font-size: 13px;
+        font-weight: normal;
+        border: 0;
+        background-image: none;
+        position: relative;
+        text-transform: none;
+        -moz-transition: background 0.1s ease-in;
+        -webkit-transition: background 0.1s ease-in;
+    }
+
+    .fd_dropdown div.right ul li ul li a:hover,
+    .fd_dropdown div.right ul li ul li a:active {
+        -moz-transition: background 0.1s ease-out;
+        -webkit-transition: background 0.1s ease-out;
+    }
+
+.left_column {
+    float: left;
+    margin-right: 3em;
+}
+
+.right_column {
+    float: right;
+    clear: right;
+}
+
+    /*
  ========================================================================= */
 #libs-and-extensions {
 	margin: 25px 15px 0;
@@ -129,48 +294,48 @@ body .UI_middleWrapper.page {
 		float: left;
 		margin-bottom: 30px;
 	}
-	
+
 	.UI_LE_Col_Group {
 		clear: both;
 		padding-top: 15px;
 	}
-	
+
 	.UI_LE_Col.createLibrary,
 	.UI_LE_Col.libraries {
 		float: right;
 	}
-	
+
 	.UI_LE_Col.getSdk {
 		float: left;
 	}
-	
+
 		.UI_LE_Col .UI_Item {
 			min-width: 170px;
 			padding-right: 0;
 		}
-		
+
 			.UI_LE_Col .UI_Item h3 {
 				font-size: .95em;
 			}
-			
+
 			.UI_LE_Col .UI_Item h4 {
 				font-size: .65em;
 			}
-	
+
 			.UI_LE_Col .UI_Actions {
 				font-size: .9em;
 				width: 213px;
 			}
-		
+
 				.UI_LE_Col .UI_Actions a {
 					padding: 3px 6px;
 				}
-			
+
 				.UI_LE_Col .UI_Actions li.UI_Pick_Version .UI_Versions {
 					position: absolute;
 					top: 22px;
 				}
-				
+
 /*
  ========================================================================= */
 .UI_Bottom_Info {
@@ -186,7 +351,7 @@ body .UI_middleWrapper.page {
 		-moz-border-radius: 6px;
 		margin-top: 10px;
 	}
-	
+
 	.UI_Mini_Button:hover {
 		-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 	}
@@ -202,7 +367,7 @@ body .UI_middleWrapper.page {
 			overflow: hidden;
 			display: block;
 		}
-		
+
 		.UI_Mini_Button a:hover {
 			text-decoration: none;
 			background: -moz-linear-gradient(270deg, #DEF8C4, #A5DA7F);
@@ -217,7 +382,7 @@ body .UI_middleWrapper.page {
 				font-weight: bold;
 				-moz-border-radius: 5px;
 			}
-			
+
 			.UI_Mini_Button a:hover span {
 				/*opacity: 0.6;*/
 			}
@@ -238,7 +403,7 @@ body .UI_middleWrapper.page {
 		.UI_Mini_Button.grey a span {
 			background: url(../img/UI_Buttons/button-home-lib.png) 0 50% no-repeat;
 			color: #4D5860;
-			
+
 		}
 
 	.moreInfo {
@@ -248,5 +413,3 @@ body .UI_middleWrapper.page {
 		.moreInfo a {
 			color: #478CDE;
 		}
-		
-		

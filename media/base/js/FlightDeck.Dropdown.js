@@ -1,4 +1,4 @@
-/* 
+/*
  * File: Flightdeck.Dropdown.js
  */
 
@@ -38,10 +38,10 @@ var Dropdown = new Class({
 
 	toggle: function(e, parent){
 		e.stop();
-		
+
 		$$(parent.dropdown.cont).fade('out');
 		$$(parent.dropdown.trigger).removeClass('active');
-		
+
 		if (this.getElement(parent.dropdown.cont).getStyles('opacity')['opacity'] === 0){
 			this.getElement(parent.dropdown.cont).fade('in');
 			this.addClass('active');
@@ -55,5 +55,31 @@ var Dropdown = new Class({
 });
 
 window.addEvent('domready', function(){
-	new Dropdown();
+    new Dropdown();
+
+    (function () {
+        var HIDE_TIMEOUT = 750,  // hide timeout, in milliseconds
+        SHOWING = 'sfhover', // CSS class for showing submenu
+        showing = null,      // reference to last parent showing its submenu
+        timeout = null;      // reference to timeout event from setTimeout
+
+        $$('div.fd_dropdown > div.right > ul > li').addEvents({
+            'mouseover': function() {
+                if (null !== showing) {
+                    showing.removeClass(SHOWING);
+                    showing = null;
+                    clearTimeout(timeout);
+                }
+                this.addClass(SHOWING);
+            },
+            'mouseout': function () {
+                showing = this;
+                showing.addClass(SHOWING);
+                timeout = setTimeout(function () {
+                    showing.removeClass(SHOWING);
+                    showing = null;
+                }, HIDE_TIMEOUT);
+            }
+        });
+    })();
 });
